@@ -57,5 +57,5 @@ export class userInstance extends Model <userAttributes> {};
 
  )
 
- userInstance.hasMany(BlogInstance)
+ //userInstance.hasMany(BlogInstance)
 

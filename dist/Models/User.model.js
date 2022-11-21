@@ -39,3 +39,4 @@ userInstance.init({
     sequelize: connection_1.default,
     tableName: "Users"
 });
+//userInstance.hasMany(BlogInstance)

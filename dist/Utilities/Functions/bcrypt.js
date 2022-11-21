@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.hashes = void 0;
 const bcrypt = require("bcrypt");
 const hashes = (password) => {
     const hashed = bcrypt.hash(password, 10, (err, hash) => {
@@ -7,4 +8,5 @@ const hashes = (password) => {
     });
     return hashed;
 };
-exports.default = hashes;
+exports.hashes = hashes;
+console.log(hashes('kamau'));

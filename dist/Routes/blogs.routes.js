@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Blog_model_1 = require("../Models/Blog.model");
+const Comments_model_1 = require("../Models/Comments.model");
+const Like_model_1 = require("../Models/Like.model");
 const blogRouter = (0, express_1.Router)();
 blogRouter.get("/", (req, res) => {
     console.log("connected Successfully");
@@ -33,6 +35,41 @@ blogRouter.post("/blogs", (req, res) => __awaiter(void 0, void 0, void 0, functi
     catch (e) {
         console.log(e);
         return res.json({ msg: "creation was unsuccessfull" });
+    }
+}));
+//getting a blog together with its comments
+blogRouter.get("/blog/comments", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.body.id;
+    try {
+        const comments = yield Comments_model_1.commentInstance.findAll({
+            where: {
+                blog_id: id
+            }
+        });
+        res.send(comments);
+    }
+    catch (e) {
+        res.json({ msg: "an error occured" });
+        console.log(e);
+    }
+}));
+// liking a blog
+blogRouter.post("/blog/like", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const [results, created] = yield Like_model_1.likeInstance.findOrCreate({
+            where: { user_id: req.body.user_id },
+            defaults: Object.assign({}, req.body)
+        });
+        if (created) {
+            res.json({ msg: "liked successfuly" });
+        }
+        else {
+            res.json({ msg: "You have already liked the blog" });
+        }
+    }
+    catch (e) {
+        res.json({ msg: "unable to like" });
+        console.log(e);
     }
 }));
 exports.default = blogRouter;

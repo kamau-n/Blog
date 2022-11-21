@@ -8,13 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const User_model_1 = require("../Models/User.model");
-const bcrypt_1 = __importDefault(require("../Utilities/Functions/bcrypt"));
+const bcrypt_1 = require("../Utilities/Functions/bcrypt");
 const userRouter = (0, express_1.Router)();
 userRouter.get("/user", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -26,9 +23,11 @@ userRouter.get("/user", (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 }));
 userRouter.post("/users", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
-    const password = (0, bcrypt_1.default)(req.body.password);
-    console.log(password);
+    // console.log(req.body);
+    // const password=hashes(req.body.password);
+    // console.log(password);
+    const password = "kamau";
+    console.log((0, bcrypt_1.hashes)("kevin"));
     try {
         const [results, isUsed] = yield User_model_1.userInstance.findOrCreate({
             where: { email: req.body.email },

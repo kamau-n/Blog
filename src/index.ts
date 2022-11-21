@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import { Error } from 'sequelize';
 import blogRouter from './Routes/blogs.routes';
 import userRouter from './Routes/users.routes';
+import commentsRouter  from './Routes/comments.routes';
 const PORT =6000;
 
 const app =express();
@@ -23,6 +24,7 @@ db.authenticate().then((result)=> console.log("connected succeesfully"))
 
 app.use("/",blogRouter)
 app.use("/" ,userRouter);
+app.use("/" ,commentsRouter);
 
 app.listen(PORT,()=>{
     console.log("App is listening  on Port "  +PORT)
